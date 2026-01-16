@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-(3hj4n@50p6(m8fjbhnia+g4+^)-i&7mgvols3whmj$n_+80n6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+import os
+# Dynamically set allowed hosts for codespace and localhost
+
+# Allow localhost, 127.0.0.1, and codespace host for Django
+codespace_name = os.environ.get('CODESPACE_NAME')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if codespace_name:
+    ALLOWED_HOSTS.append(f'{codespace_name}-8000.app.github.dev')
+    ALLOWED_HOSTS.append(f'.app.github.dev')  # Allow wildcard for subdomains
 
 
 # Application definition
